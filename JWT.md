@@ -88,3 +88,16 @@ You might've noticed more than one key in the JSON, which is why it's called JSO
     "kid":"2022-05-01"
 }
 This way, the client will know which key to get by comparing the kid in the JOSE header JWT to the one in the JWK. The other fields, combined, will make the public key.
+
+
+### JSON Web Key (JWK)
+JWK (RFC 7517) stands for JSON Web Key. JWK is a JSON data structure that contains information about hashing function's cryptographic key. It's a way to store your hashing key in JSON format.
+
+{
+    "kty":"EC",
+    "crv":"P-256",
+    "x":"f83OJ3D2xF1Bg8vub9tLe1gHMzV76e8Tus9uPHvRVEU",
+    "y":"x_FEzRu9m36HLN_tue659LNpXW6pCyStikYjKIWI5a0",
+    "kid":"Public key used in JWS spec Appendix A.3 example"
+}
+The JWK is usually used to host a public key for a hashing function with an asymmetric key (private key and public key), so the consumer can get the key by themself.
