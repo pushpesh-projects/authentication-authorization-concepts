@@ -91,8 +91,7 @@ This way, the client will know which key to get by comparing the kid in the JOSE
 
 
 ### JSON Web Key (JWK)
-JWK (RFC 7517) stands for JSON Web Key. JWK is a JSON data structure that contains information about hashing function's cryptographic key. It's a way to store your hashing key in JSON format.
-
+JWK is a JSON structure representing a set of public keys as a JSON object using the Elliptic Curve or RSA algorithms. Public key representations can help verify the signature with the corresponding private key.
 {
     "kty":"EC",
     "crv":"P-256",
@@ -101,3 +100,13 @@ JWK (RFC 7517) stands for JSON Web Key. JWK is a JSON data structure that contai
     "kid":"Public key used in JWS spec Appendix A.3 example"
 }
 The JWK is usually used to host a public key for a hashing function with an asymmetric key (private key and public key), so the consumer can get the key by themself.
+
+### JWA — JSON Web Algorithms
+
+The JWA specification focuses mainly on enumerating the algorithms necessary for JWS, JWK AND JWE
+
+### JOSE
+
+The IETF JSON Object Signing and Encryption (JOSE) working group was chartered to develop a secure object format based on JSON and simplify adding object-based security features to internet applications.
+
+The basic requirements for these object formats are confidentiality and integrity mechanisms encoded in JSON. JWT, JWS, JWE, JWK, and JWA are the JOSE working group items intended to describe these object formats.
