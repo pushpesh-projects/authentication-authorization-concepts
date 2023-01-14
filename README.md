@@ -2,6 +2,50 @@
 
 ## Client authentication using private_key_jwt method
 
+Clients can send a signed JWT to the authorization server as credentials instead of the client ID and/or secret, as per (RFC 7523) JWT Profile for OAuth 2.0 Client Authentication and Authorization Grants. The authorization server must be able to validate the JWT to authenticate the client.
+
+Requirements for private_key_jwt
+
+The following section describes details on both client and authorization server side.
+
+Client
+
+A client must include the following parameters in a token request when using the private_key_jwt method.
+Parameter
+Description
+client_assertion_type
+A type of client_assertion. Its value must be "urn:ietf:params:oauth:client-assertion-type:jwt-bearer".
+client_assertion
+A JWT that contains information for client authentication. It must be digitally signed using a private key. See below for details.
+
+
+The value of client_assertion must satisfy the following requirements on its JWT payload and JWT signature. You can find an example JWT in the  "Generating a JWT assertion" section.
+
+Payload
+
+A JWT assertion must contain the REQUIRED claims listed below.
+Claim
+Description
+iss
+[REQUIRED] Issuer. This must contain the client_id of the OAuth client.
+sub
+[REQUIRED] Subject. This must contain the client_id of the OAuth client.
+aud
+[REQUIRED] Audience. A value that identifies the authorization server as an intended audience. The authorization server must verify that it is an intended audience for the token. The audience should be the URL of the authorization server's token endpoint.
+jti
+[REQUIRED] JWT ID. A unique identifier for the token, which can be used to prevent reuse of the token. These tokens must only be used once unless conditions for reuse were negotiated between the parties; any such negotiation is beyond the scope of this specification.
+exp
+[REQUIRED] Expiration time on or after which the JWT must not be accepted for processing.
+iat
+[OPTIONAL] Time at which the JWT was issued.
+
+
+Signature
+
+A JWT assertion must be digitally signed using a private key in asymmetric cryptography (e.g. RS256).
+A client using the authentication method has to register its public key to an authorization server in advance so that the server can verify the assertion.
+
+
 ## ID Token
 
 The core of OpenID Connect is based on a concept called “ID Tokens.” This is a new token type that the authorization server will return which encodes the user’s authentication information. In contrast to access tokens, which are only intended to be understood by the resource server, ID tokens are intended to be understood by the OAuth client. When the client makes an OpenID Connect request, it can request an ID token along with an access token.
